@@ -1,42 +1,44 @@
 package lotto.controller;
 
-import camp.nextstep.edu.missionutils.Randoms;
 import lotto.Checking;
 import lotto.domain.*;
 import lotto.view.InPut;
 import lotto.view.OutPut;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LottoController {
 
-    static Money money = new Money();
-    static OutPut outPut = new OutPut();
-    static InPut inPut = new InPut();
+    Money money = new Money();
 
-    private static WinningLotto winningLotto = new WinningLotto();
-    Lotto lotto;
-    Lotto winlotto;
+    InPut input = new InPut();
+    OutPut outPut = new OutPut();
+    WinningLotto winningLotto;
+
     Result result = new Result();
-    private static List<Lotto> lottoList;
 
-    private static Checking checking = new Checking();
-    private static Lottos lottos = new Lottos();
+    List<Integer> lotto;
+    List<Lotto> lottoList;
 
-    int count;
+    Checking checking = new Checking();
+    Lottos lottos = new Lottos();
     public void Start(){
-        count = money.inputMoney();
-        lottoList = lottos.makeLottos(count);
-        winningLotto.MakeWinningLotto();
-        checking.compareLottos(lottoList,winningLotto);
-        printResult(result,count);
-    }
+        try {
+            int price = input.inputPurchaseAmount();
 
-    public void UpdateResult(int count){
-        result.addRank(count);
-    }
+            int count = money.returnCount(price);
+            lottoList = lottos.makeLottos(count);
 
+            lotto = input.inputWinNumber();
+            int bonus = input.inputBonus();
+
+            winningLotto = new WinningLotto(lotto,bonus);
+            checking.compareLottos(lottoList, winningLotto);
+            printResult(result, count);
+        }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+    }
     public void printResult(Result result, int count){
         outPut.printRank(result);
         outPut.printReturnRate(result,count);

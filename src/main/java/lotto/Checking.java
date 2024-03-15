@@ -17,7 +17,7 @@ public class Checking {
     }
 
     public int compareLotto(Lotto lotto, WinningLotto winningLotto){
-        int count = (int) lotto.getNumbers().stream() //숫자의 범위가 0~6이므로 (int)로 형 변환 가능
+        int count = (int) lotto.getNumbers().stream()
                 .filter(winningLotto.getWinningnumbers()::contains)
                 .count();
         boolean checkBonus = lotto.getNumbers().stream().anyMatch(number -> number == winningLotto.getBonus());
