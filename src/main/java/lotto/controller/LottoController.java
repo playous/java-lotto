@@ -12,35 +12,29 @@ public class LottoController {
     Money money = new Money();
 
     InPut input = new InPut();
-    OutPut outPut = new OutPut();
     WinningLotto winningLotto;
 
     Result result = new Result();
-
-    List<Integer> lotto;
     List<Lotto> lottoList;
 
     Checking checking = new Checking();
     Lottos lottos = new Lottos();
-    public void Start(){
+    private int count;
+
+   public void Start(){
         try {
-            int price = input.inputPurchaseAmount();
-
-            int count = money.returnCount(price);
+            int count = money.returnCount(input.inputPurchaseAmount());
             lottoList = lottos.makeLottos(count);
-
-            lotto = input.inputWinNumber();
-            int bonus = input.inputBonus();
-
-            winningLotto = new WinningLotto(lotto,bonus);
+            winningLotto = new WinningLotto(input.inputWinNumber(),input.inputBonus());
             checking.compareLottos(lottoList, winningLotto);
-            printResult(result, count);
+            printResult(result);
         }catch (IllegalArgumentException e){
             System.out.println(e.getMessage());
         }
     }
-    public void printResult(Result result, int count){
-        outPut.printRank(result);
-        outPut.printReturnRate(result,count);
+    public void printResult(Result result){
+        OutPut.printRank(result);
+        OutPut.printReturnRate((double)result.getWinningAmount()/(count*1000)*100);
     }
+
 }
