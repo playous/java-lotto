@@ -1,8 +1,6 @@
 package lotto;
 
-import lotto.controller.LottoController;
 import lotto.domain.Lotto;
-import lotto.domain.Lottos;
 import lotto.domain.Money;
 import lotto.domain.WinningLotto;
 import org.junit.jupiter.api.DisplayName;
@@ -13,6 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LottoTest {
     @DisplayName("로또 번호의 개수가 6개가 넘어가면 예외가 발생한다.")
@@ -25,7 +24,6 @@ class LottoTest {
     @DisplayName("로또 번호에 중복된 숫자가 있으면 예외가 발생한다.")
     @Test
     void createLottoByDuplicatedNumber() {
-        // TODO: 이 테스트가 통과할 수 있게 구현 코드 작성
         assertThatThrownBy(() -> new Lotto(List.of(1, 2, 3, 4, 5, 5)))
                 .isInstanceOf(IllegalArgumentException.class);
     }
@@ -81,4 +79,14 @@ class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("[ERROR]");
     }
+
+    @Test
+    @DisplayName("구매횟수를 정확히 구하는지 확인")
+    void CheckingCount(){
+        Money money = new Money();
+        assertEquals(money.returnCount(5000),5);
+        assertEquals(money.returnCount(12000),12);
+    }
+
+
 }
