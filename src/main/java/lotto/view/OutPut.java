@@ -30,7 +30,11 @@ public class OutPut {
         System.out.println(String.format("6개 일치 (2000000000원) - %d개",ranking.get("6개")));
     }
 
-    public static void printReturnRate(Result result, int count){
-        System.out.println(String.format("총 수익률은 %.1f%%입니다.",(double)result.getWinningAmount()/(count*10)));
+    public static void printReturnRate(double returnRate){
+        if (Double.isFinite(returnRate)) {
+            System.out.println(String.format("총 수익률은 %.1f%%입니다.", returnRate));
+            return;
+        }
+        System.out.println("총 수익률은 0.0%입니다.");
     }
 }
