@@ -4,11 +4,10 @@ import lotto.view.OutPut;
 
 public class Money {
     private int money;
-    private int count;
     public int returnCount(int money){
         validateMoney(money);
         this.money = money;
-        count = getCount();
+        int count = getCount();
         OutPut.printTicketCount(count);
         return count;
     }
