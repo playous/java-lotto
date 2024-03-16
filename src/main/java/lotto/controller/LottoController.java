@@ -21,9 +21,9 @@ public class LottoController {
     Lottos lottos = new Lottos();
     private int count;
 
-   public void Start(){
+    public void Start(){
         try {
-            int count = money.returnCount(input.inputPurchaseAmount());
+            count = money.returnCount(input.inputPurchaseAmount());
             lottoList = lottos.makeLottos(count);
             winningLotto = new WinningLotto(input.inputWinNumber(),input.inputBonus());
             checking.compareLottos(lottoList, winningLotto);
